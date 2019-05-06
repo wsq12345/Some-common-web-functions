@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			#box,
+			#pic {
+				width: 600px;
+				height: 400px;
+			}
+
+			#dot {
+				width: 600px;
+				height: 50px;
+				position: absolute;
+				top: 350px;
+				background: url(img/pngBg.png);
+			}
+
+			#dots {
+				list-style: none;
+				display: inline-block;
+				margin-left: 200px;
+			}
+
+			#dots>li {
+				float: left;
+				margin-left: 10px;
+				cursor: pointer;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				var box=document.getElementById("box");
+				var pic = document.getElementById("pic");
+				var dot = document.getElementById("dot");
+				var dots = document.getElementById("dots");
+				var li = dots.getElementsByTagName("li");
+				var img = ["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg"];
+				var currentIndex = 0;
+				showimg();
+				function showimg() {
+					pic.src = img[currentIndex];
+					for (var i = 0; i < li.length; i++)
+						li[i].style.color = "darkgrey";
+					li[currentIndex].style.color = "white";
+				}
+				function changeimg(){
+					currentIndex++;
+					currentIndex%=5;
+					showimg();
+				}
+				var timer=setInterval(changeimg,2000);
+				for (var i = 0; i < li.length; i++) {
+					li[i].index = i;
+					li[i].onmouseover=function(){
+						currentIndex=this.index;
+						showimg();
+					}
+				}					
+				box.onmouseover = function() {
+					clearInterval(timer);
+				}
+				box.onmouseout=function(){
+					timer=setInterval(changeimg,2000);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<img src="" id="pic">
+			<div id="dot">
+				<ul id="dots">
+					<li>●</li>
+					<li>●</li>
+					<li>●</li>
+					<li>●</li>
+					<li>●</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
