@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			#main {
+				margin-top: 50px;
+				margin-left: 50px;
+			}
+
+			#txt {
+				width: 100px;
+				height: 20px;
+			}
+
+			#Verification {
+				width: 60px;
+				height: 20px;
+				color: blue;
+				background: grey;
+				text-align: center;
+				cursor: pointer;
+				margin: 0 5px 0 5px;
+				border-bottom: 2px solid black;
+				border-top: 2px solid white;
+				border-left: 2px solid white;
+				border-right: 2px solid black;
+			}
+
+			#txt,
+			#Verification {
+				float: left;
+			}
+
+			#btn {
+				width: 40px;
+				height: 20px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				var txt = document.getElementById("txt");
+				var Verification = document.getElementById("Verification");
+				var btn = document.getElementById("btn");
+				var a = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+					'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+				];
+				var codes;
+				var flag=false;
+				var timer = setInterval(timeout, 10000);
+				function timeout() {
+					flag=true;
+				}
+				Verification.innerHTML = createcode();
+
+				function createcode() {
+					codes = "";
+					var x;
+					for (var i = 0; i < 4; i++) {
+						x = Math.floor(Math.random() * 36);
+						codes += a[x];
+					}
+					return codes.toUpperCase();
+				}
+				Verification.onclick = function() {
+					flag=false;
+					Verification.innerHTML = createcode();
+					timer = setInterval(timeout, 10000);
+				}
+				btn.onclick = verify;
+				function verify() {
+					if (!flag) {
+						if (txt.value == codes)
+							alert("验证成功");
+						else
+							alert("验证失败,请重新获取验证码");
+					}
+					else
+						alert("超时,请重新获取验证码");
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="main">
+			<input type="" name="" id="txt" value="" placeholder="请输入验证码" />
+			<div id="Verification">
+			</div>
+			<button type="button" id="btn">验证</button>
+		</div>
+
+	</body>
+</html>
