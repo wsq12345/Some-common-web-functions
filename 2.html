@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			#left,#right {
+				height: 100px;
+				width: 20px;
+				text-align: center;
+				line-height: 100px;
+				background: #ccc;
+			}
+			#left,#scroll,#right{
+				float: left;
+			}
+			#left{
+				position: absolute;
+				left: 0;
+				cursor: pointer;
+			}
+			#right{
+				position: absolute;
+				left: 520px;
+				cursor: pointer;
+			}
+			#scroll{
+				width: 500px;
+				height: 100px;
+				position: relative;
+				left: 20px;
+				overflow: hidden;
+			}
+			img {
+				width: 100px;
+				height: 100px;			
+			}
+			ul{
+				overflow: hidden;
+				width: 1500px;
+				height: 100px;
+				list-style: none;
+				position: absolute;			
+			}
+			li{
+				float: left;
+				width: 100px;
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var oulHtml = $("ul").html();
+				$("ul").html(oulHtml + oulHtml);  //复制
+				var direction=-1;  //默认向左
+				var timer=setInterval(scroll,30);
+				function scroll(){
+					if(direction<0){
+						if($("ul").css("left")=="-500px")
+							$("ul").css('left', "0px");
+					}
+					if(direction>0){
+						if($("ul").css("left")=="0px")
+							$("ul").css('left', "-500px");
+					}
+					$("ul").css("left","+="+direction+"px")
+				}
+				$("#left").click(function(){                                                                             
+					direction=-1;
+				})                      
+				$("#right").click(function(){
+					direction=1;
+				})	
+				$("#scroll").mouseover(function(){
+					clearInterval(timer);
+				})
+				$("#scroll").mouseout(function(){
+					timer=setInterval(scroll,30);
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<div id="left"><</div> 
+			<div id="scroll">
+				<ul>
+					<li><img src="img/1.jpg"></li>
+					<li><img src="img/2.jpg"></li>
+					<li><img src="img/3.jpg"></li>
+					<li><img src="img/4.jpg"></li>
+					<li><img src="img/5.jpg"></li>
+				</ul>	
+			</div>
+			<div id="right">></div>
+		</div>
+	</body>
+</html>
